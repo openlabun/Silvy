@@ -9,17 +9,17 @@ package generadorjson;
  * @author Joseph
  */
 class ValorJSON {
-    
+
     private String tipo;
     private Object valor;
 
     public ValorJSON(Object valor) {
-        tipo = new String();
         this.valor = valor;
+        this.tipo = valor.getClass().getSimpleName();
     }
 
     ValorJSON() {
-        
+            
     }
 
     public String getTipo() {
