@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador JSON</title>
+    <style>
+        .campo {
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Formulario para agregar nuevos objetos JSON -->
+    <form id="json-form">
+        <div id="campos">
+            <!-- Los campos se agregaran aquí -->
+        </div>
+        <button type="button" onclick="agregarCampo()">Agregar campo</button>
+        <button type="submit">Agregar objeto</button>
+    </form>
+
+    <!-- Campo y botón para generar múltiples objetos -->
+    <input type="number" id="cantidad-objetos" placeholder="Cantidad de objetos" min="1">
+    <button onclick="generarObjetos()">Generar Objetos</button>
+
+    <!-- Botón para guardar JSON en disco (esto descargará un archivo) -->
+    <button onclick="guardarEnDisco()">Guardar en disco</button>
+
+    <!-- Contenedor para mostrar el JSON generado -->
+    <pre id="json-output"></pre>
+
+    <script>
+        var animales = ['Abeja', 'Ballena', 'Camello', 'Delfín', 'Elefante', 'Foca',
+            'Gato', 'Hipopótamo', 'Iguana', 'Jirafa', 'Koala', 'León',
+            'Mono', 'Ñandú', 'Oso', 'Pájaro', 'Quokka', 'Rinoceronte',
+            'Serpiente', 'Tigre', 'Ualabí', 'Vaca', 'Wombat', 'Xoloitzcuintle',
+            'Yak', 'Zorro', 'Ardilla', 'Búho', 'Canguro',
+            'Dinosaurio', 'Erizo', 'Flamenco', 'Gorila', 'Halcón',
+            'Insecto', 'Jabalí', 'Kangaroo', 'Lince', 'Murciélago',
+            'Ñu', 'Ornitorrinco', 'Pez', 'Quetzal', 'Rata',
+            'Salamandra', 'Tortuga', 'Urraca', 'Víbora', 'Wallaby',
+            'Xenopus', 'Yacaré', 'Zarigüeya'];
+
+
+        var objetos2 = ['Almohada', 'Bolígrafo', 'Cuchara', 'Dado', 'Escoba', 'Foco',
+            'Gafas', 'Hervidor', 'Impresora', 'Jarra', 'Kilogramo', 'Lámpara',
+            'Martillo', 'Nota', 'Óleo', 'Paraguas', 'Quesera', 'Reloj',
+            'Sartén', 'Taza', 'Ubicación', 'Vaso', 'Wok', 'Xilófono',
+            'Yate', 'Zapato', 'Auriculares', 'Batería', 'Cargador',
+            'Destornillador', 'Enchufe', 'Frasco', 'Guitarra', 'Horno',
+            'Índice', 'Jabón', 'Kiosco', 'Libro', 'Mochila', 'Navaja',
+            'Órgano', 'Papel', 'Quemador', 'Ratón', 'Sombrero',
+            'Teclado', 'Usb', 'Ventilador', 'Walkie-talkie', 'Xerox',
+            'Yogurtera', 'Zumo'];
+
+        var ciudades = ['Amsterdam', 'Barcelona', 'Chicago', 'Dublín', 'Edimburgo', 'Florencia',
+            'Ginebra', 'Helsinki', 'Istanbul', 'Jerusalén', 'Kioto', 'Lisboa',
+            'México DF', 'Nueva York', 'Oslo', 'París', 'Quito', 'Roma',
+            'Santiago', 'Tokio', 'Utrecht', 'Viena', 'Washington D.C.', 'Xalapa',
+            'Yakarta', 'Zúrich', 'Atenas', 'Brisbane', 'Copenhague',
+            'Dakar', 'Estocolmo', 'Frankfurt', 'Glasgow', 'Hamburgo',
+            'Innsbruck', 'Johannesburgo', 'Kansas City', 'Leeds', 'Moscú',
+            'Nairobi', 'Ottawa', 'Praga', 'Quebec', 'Río de Janeiro',
+            'Seúl', 'Toronto', 'Ulan Bator', 'Valencia', 'Wellington',
+            'Xiamen', 'Yerevan', 'Zagreb'];
+
+        var frutas = ['Manzana', 'Banana', 'Cereza', 'Dátil', 'Escaramujo', 'Frambuesa',
+            'Granada', 'Higo', 'Icaco', 'Jitomate', 'Kiwi', 'Limón',
+            'Mango', 'Naranja', 'Oliva', 'Papaya', 'Quenepa', 'Remolacha',
+            'Sandía', 'Tomate', 'Uva', 'Vainilla', 'Wampi', 'Xoconostle',
+            'Yaca', 'Zarzamora', 'Aguacate', 'Berenjena', 'Ciruela',
+            'Durazno', 'Espinaca', 'Fresa', 'Guayaba', 'Hortaliza',
+            'Injerto', 'Jícama', 'Kale', 'Lima', 'Melón', 'Nuez',
+            'Orégano', 'Piña', 'Quimbombó', 'Repollo', 'Sabila',
+            'Tamarindo', 'Uchuva', 'Verdolaga', 'Wasabi', 'Xoai',
+            'Yuca', 'Zanahoria'];
+
+        var nombresFicticios = ['Aiden', 'Alana', 'Alden', 'Alexis', 'Alvin', 'Amelia', 'Anika',
+            'Archer', 'Ariana', 'Ariel', 'Armando', 'Arthur', 'Ashley', 'Ashton', 'Aubrey', 'Audrey',
+            'Austin', 'Autumn', 'Avery', 'Axel', 'Bailey', 'Barrett', 'Beckett', 'Bella',
+            'Bennett', 'Bethany', 'Bianca', 'Blaine', 'Blake', 'Blaze', 'Brendan', 'Brenna',
+            'Brett', 'Brianna', 'Bridget', 'Brinley', 'Brock', 'Brody', 'Brooke', 'Bryant',
+            'Brynn', 'Bryson', 'Cadence', 'Caiden', 'Caleb', 'Callie', 'Calvin', 'Camden', 'Cameron',
+            'Camila', 'Camille', 'Cara', 'Carlos', 'Carmen', 'Carter', 'Cassandra', 'Cecilia', 'Cedric',
+            'Celeste', 'Cesar', 'Chad', 'Chandler', 'Chanel', 'Charity', 'Charles', 'Charlie', 'Charlotte',
+            'Chase', 'Chaya', 'Chelsea', 'Cherish', 'Cheyenne', 'Chloe', 'Chris', 'Christian', 'Christina',
+            'Christine', 'Christopher', 'Ciara', 'Cindy', 'Claire', 'Clara', 'Clarence', 'Clarissa',
+            'Clark', 'Claudia', 'Clay', 'Clayton', 'Cleo', 'Clifford', 'Clint', 'Clinton', 'Clyde',
+            'Coby', 'Cody', 'Colette', 'Colby', 'Cole', 'Colette', 'Colin', 'Colleen', 'Colt', 'Colton'];
+
+        var apellidosFicticios = ['Abbar', 'Bennett', 'Calderon', 'Dennison', 'Eldridge', 'Falcon', 'Gallagher', 'Hendrix',
+            'Ibarra', 'Jennings', 'Kramer', 'Lancaster', 'Maddox', 'Nixon', 'Overton', 'Parrish',
+            'Quillen', 'Ramsey', 'Sanderson', 'Thacker', 'Underwood', 'Vaughn', 'Waldron', 'Xander',
+            'Yardley', 'Zimmerman', 'Alton', 'Baxter', 'Caldwell', 'Dexter', 'Ellison', 'Fairchild',
+            'Grafton', 'Hawthorne', 'Ingram', 'Jefferson', 'Kendrick', 'Lawson', 'Masterson', 'Norwood',
+            'Oakley', 'Prescott', 'Quincy', 'Redfield', 'Sherwood', 'Tanner', 'Upton', 'Vance',
+            'Waverly', 'Xavier', 'Yeager', 'Zane', 'Alcott', 'Barrington', 'Carrington', 'Dalton', 'Eaton', 'Farnsworth', 'Garfield', 'Harrington',
+            'Iverson', 'Jenner', 'Kensington', 'Lancaster', 'Masterson', 'Noble', 'Overstreet', 'Patterson',
+            'Quincy', 'Radcliffe', 'Satterfield', 'Trenton', 'Upton', 'Vanderbilt', 'Warwick', 'Xenos',
+            'Yeager', 'Zephyr', 'Aldridge', 'Baxter', 'Colton', 'Dewitt', 'Eldridge', 'Fairfax', 'Gainsborough',
+            'Hawthorne', 'Inglewood', 'Jennings', 'Kingsley', 'Lawrence', 'Merton', 'Northwood', 'Oglesby',
+            'Pennington', 'Quill', 'Ridgeway', 'Somerset', 'Tillman', 'Underhill', 'Vernon', 'Wainwright',
+            'Xander', 'Yates', 'Zimmer', 'Allerton', 'Bradford', 'Clifton', 'Dudley', 'Ellsworth'];
+
+        var objetos = [];
+        function autogenerarValor(select, event) {
+            var campoDiv = select.parentElement;
+            var valorInput = campoDiv.children[1];
+            switch (event.target.value) {
+                case 'EDAD':
+                    valorInput.value = Math.random() * 100;
+                    break;
+                case 'CIUDAD':
+                    valorInput.value = ciudades[Math.floor(Math.random() * ciudades.length)];
+                    break;
+                case 'FRUTA':
+                    valorInput.value = frutas[Math.floor(Math.random() * frutas.length)];
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        function autogenerarClave(select, event) {
+            var campoDiv = select.parentElement;
+            var claveInput = campoDiv.children[0];
+            switch (event.target.value) {
+                case 'Nombre':
+                    claveInput.value = generarNombreAleatorio();
+                    break;
+                case 'Animal':
+                    claveInput.value = animales[Math.floor(Math.random() * animales.length)];
+                    break;
+                case 'Objeto':
+                    claveInput.value = objetos2[Math.floor(Math.random() * objetos2.length)];
+                    break;
+                default:
+                    break;
+            }
+        }
+
+
+
+        function eliminarCampo(boton) {
+            var campoDiv = boton.parentElement;
+            campoDiv.parentElement.removeChild(campoDiv);
+        }
+
+
+        function generarNombreAleatorio() {
+            var nombre = nombresFicticios[Math.floor(Math.random() * nombresFicticios.length)];
+            var apellido = apellidosFicticios[Math.floor(Math.random() * apellidosFicticios.length)];
+            return nombre + ' ' + apellido;
+        }
+
+        function agregarCampo() {
+            var camposDiv = document.getElementById('campos');
+            var nuevoCampoDiv = document.createElement('div');
+            nuevoCampoDiv.className = 'campo';
+            nuevoCampoDiv.innerHTML = `
+        <input type="text" placeholder="Nombre del dato" required>
+        <input type="text" placeholder="Valor del dato" required>
+        <button type="button" onclick="eliminarCampo(this)">Eliminar</button>
+        <select onchange="autogenerarClave(this, event)">
+            <option value="" disabled selected>Autogenerar Clave</option>
+            <option value="Nombre">Nombre</option>
+            <option value="Animal">Animal</option>
+            <option value="Objeto">Objeto</option>
+        </select>
+        <select onchange="autogenerarValor(this, event)">
+            <option value="" disabled selected>Autogenerar Valor</option>
+            <option value="EDAD">EDAD</option>
+            <option value="CIUDAD">CIUDAD</option>
+            <option value="FRUTA">FRUTA</option>
+        </select>
+    `;
+            camposDiv.appendChild(nuevoCampoDiv);
+        }
+
+
+
+        document.getElementById('json-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            var camposDivs = document.querySelectorAll('.campo');
+            var objeto = {};
+            camposDivs.forEach(function (campoDiv) {
+                var claveInput = campoDiv.children[0];
+                var valorInput = campoDiv.children[1];
+                objeto[claveInput.value] = valorInput.value;
+            });
+            objetos.push(objeto);
+            document.getElementById('json-output').textContent = JSON.stringify(objetos, null, 2);
+        });
+
+        function generarObjetos() {
+            var cantidad = document.getElementById('cantidad-objetos').value;
+            for (var i = 0; i < cantidad; i++) {
+                var objeto = {
+                    nombre: generarNombreAleatorio(),
+                    edad: Math.floor(Math.random() * 100),
+                    casado: Math.random() < 0.5
+                };
+                objetos.push(objeto);
+            }
+            document.getElementById('json-output').textContent = JSON.stringify(objetos, null, 2);
+        }
+
+        function guardarEnDisco() {
+            var jsonStr = JSON.stringify(objetos, null, 2);
+            var blob = new Blob([jsonStr], { type: 'application/json' });
+            var url = URL.createObjectURL(blob);
+            var a = document.createElement('a');
+            a.href = url;
+            a.download = 'salida.json';
+            a.click();
+            URL.revokeObjectURL(url);
+        }
+    </script>
+
+</body>
+
+</html>
