@@ -16,7 +16,7 @@ Paso 2: cd en el repositorio clonado y ejecute:
 npm install
 ```
 
-Paso 4: Inicie la API
+Paso 3: Inicie la API
 
 ```bash
 npm start
