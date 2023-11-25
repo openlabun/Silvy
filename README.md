@@ -25,5 +25,5 @@ npm start
 ## Autores
 
 - [**AKKO98**](https://github.com/AKKO98)
-- [****]
+- [**adl088**]()
 - [**Joy12600**](https://github.com/Joy12600)
