@@ -20,11 +20,12 @@
     </header>
 
     <div class="article">
-      <h2>Crear Objeto</h2>
+      <h2>Crear Objeto:</h2>
       <!-- Formulario para agregar nuevos objetos JSON -->
       <form id="json-form">
         <div id="campos">
           <!-- Los campos se agregaran aquí -->
+
         </div>
         <button type="button" id="agregarC" onclick="agregarCampo()">
           Agregar campo
@@ -32,7 +33,7 @@
         <button type="submit" id="agregarO">Agregar objeto</button>
       </form>
 
-      <h2>Generar automáticamente</h2>
+      <h2>Generar automáticamente:</h2>
       <!-- Campo y botón para generar múltiples objetos -->
       <input type="number" id="cantidad-objetos" placeholder="Cantidad de objetos" min="1" />
       <button id="generarObjetos" onclick="generarObjetos()">Generar Objetos
@@ -45,229 +46,11 @@
 
       <!-- Contenedor para mostrar el JSON generado -->
       <h2>Salida:</h2>
+      <button id="delete-json-btn">Borrar JSON</button>
+      <button id="ctrl-z-btn">Ctrl + Z</button>
       <pre id="json-output"></pre>
 
       <script>
-        var animales = [
-          "Abeja",
-          "Ballena",
-          "Camello",
-          "Delfín",
-          "Elefante",
-          "Foca",
-          "Gato",
-          "Hipopótamo",
-          "Iguana",
-          "Jirafa",
-          "Koala",
-          "León",
-          "Mono",
-          "Ñandú",
-          "Oso",
-          "Pájaro",
-          "Quokka",
-          "Rinoceronte",
-          "Serpiente",
-          "Tigre",
-          "Ualabí",
-          "Vaca",
-          "Wombat",
-          "Xoloitzcuintle",
-          "Yak",
-          "Zorro",
-          "Ardilla",
-          "Búho",
-          "Canguro",
-          "Dinosaurio",
-          "Erizo",
-          "Flamenco",
-          "Gorila",
-          "Halcón",
-          "Insecto",
-          "Jabalí",
-          "Kangaroo",
-          "Lince",
-          "Murciélago",
-          "Ñu",
-          "Ornitorrinco",
-          "Pez",
-          "Quetzal",
-          "Rata",
-          "Salamandra",
-          "Tortuga",
-          "Urraca",
-          "Víbora",
-          "Wallaby",
-          "Xenopus",
-          "Yacaré",
-          "Zarigüeya",
-        ];
-
-        var objetos2 = [
-          "Almohada",
-          "Bolígrafo",
-          "Cuchara",
-          "Dado",
-          "Escoba",
-          "Foco",
-          "Gafas",
-          "Hervidor",
-          "Impresora",
-          "Jarra",
-          "Kilogramo",
-          "Lámpara",
-          "Martillo",
-          "Nota",
-          "Óleo",
-          "Paraguas",
-          "Quesera",
-          "Reloj",
-          "Sartén",
-          "Taza",
-          "Ubicación",
-          "Vaso",
-          "Wok",
-          "Xilófono",
-          "Yate",
-          "Zapato",
-          "Auriculares",
-          "Batería",
-          "Cargador",
-          "Destornillador",
-          "Enchufe",
-          "Frasco",
-          "Guitarra",
-          "Horno",
-          "Índice",
-          "Jabón",
-          "Kiosco",
-          "Libro",
-          "Mochila",
-          "Navaja",
-          "Órgano",
-          "Papel",
-          "Quemador",
-          "Ratón",
-          "Sombrero",
-          "Teclado",
-          "Usb",
-          "Ventilador",
-          "Walkie-talkie",
-          "Xerox",
-          "Yogurtera",
-          "Zumo",
-        ];
-
-        var ciudades = [
-          "Amsterdam",
-          "Barcelona",
-          "Chicago",
-          "Dublín",
-          "Edimburgo",
-          "Florencia",
-          "Ginebra",
-          "Helsinki",
-          "Istanbul",
-          "Jerusalén",
-          "Kioto",
-          "Lisboa",
-          "México DF",
-          "Nueva York",
-          "Oslo",
-          "París",
-          "Quito",
-          "Roma",
-          "Santiago",
-          "Tokio",
-          "Utrecht",
-          "Viena",
-          "Washington D.C.",
-          "Xalapa",
-          "Yakarta",
-          "Zúrich",
-          "Atenas",
-          "Brisbane",
-          "Copenhague",
-          "Dakar",
-          "Estocolmo",
-          "Frankfurt",
-          "Glasgow",
-          "Hamburgo",
-          "Innsbruck",
-          "Johannesburgo",
-          "Kansas City",
-          "Leeds",
-          "Moscú",
-          "Nairobi",
-          "Ottawa",
-          "Praga",
-          "Quebec",
-          "Río de Janeiro",
-          "Seúl",
-          "Toronto",
-          "Ulan Bator",
-          "Valencia",
-          "Wellington",
-          "Xiamen",
-          "Yerevan",
-          "Zagreb",
-        ];
-
-        var frutas = [
-          "Manzana",
-          "Banana",
-          "Cereza",
-          "Dátil",
-          "Escaramujo",
-          "Frambuesa",
-          "Granada",
-          "Higo",
-          "Icaco",
-          "Jitomate",
-          "Kiwi",
-          "Limón",
-          "Mango",
-          "Naranja",
-          "Oliva",
-          "Papaya",
-          "Quenepa",
-          "Remolacha",
-          "Sandía",
-          "Tomate",
-          "Uva",
-          "Vainilla",
-          "Wampi",
-          "Xoconostle",
-          "Yaca",
-          "Zarzamora",
-          "Aguacate",
-          "Berenjena",
-          "Ciruela",
-          "Durazno",
-          "Espinaca",
-          "Fresa",
-          "Guayaba",
-          "Hortaliza",
-          "Injerto",
-          "Jícama",
-          "Kale",
-          "Lima",
-          "Melón",
-          "Nuez",
-          "Orégano",
-          "Piña",
-          "Quimbombó",
-          "Repollo",
-          "Sabila",
-          "Tamarindo",
-          "Uchuva",
-          "Verdolaga",
-          "Wasabi",
-          "Xoai",
-          "Yuca",
-          "Zanahoria",
-        ];
-
         var nombresFicticios = [
           "Aiden",
           "Alana",
@@ -487,45 +270,6 @@
         ];
 
         var objetos = [];
-        function autogenerarValor(select, event) {
-          var campoDiv = select.parentElement;
-          var valorInput = campoDiv.children[1];
-          switch (event.target.value) {
-            case "EDAD":
-              valorInput.value = Math.random() * 100;
-              break;
-            case "CIUDAD":
-              valorInput.value =
-                ciudades[Math.floor(Math.random() * ciudades.length)];
-              break;
-            case "FRUTA":
-              valorInput.value =
-                frutas[Math.floor(Math.random() * frutas.length)];
-              break;
-            default:
-              break;
-          }
-        }
-
-        function autogenerarClave(select, event) {
-          var campoDiv = select.parentElement;
-          var claveInput = campoDiv.children[0];
-          switch (event.target.value) {
-            case "Nombre":
-              claveInput.value = generarNombreAleatorio();
-              break;
-            case "Animal":
-              claveInput.value =
-                animales[Math.floor(Math.random() * animales.length)];
-              break;
-            case "Objeto":
-              claveInput.value =
-                objetos2[Math.floor(Math.random() * objetos2.length)];
-              break;
-            default:
-              break;
-          }
-        }
 
         function eliminarCampo(boton) {
           var campoDiv = boton.parentElement;
@@ -579,21 +323,22 @@
         }
 
 
-        document
-          .getElementById("json-form")
-          .addEventListener("submit", function (e) {
-            e.preventDefault();
-            var camposDivs = document.querySelectorAll(".campo");
-            var objeto = {};
-            camposDivs.forEach(function (campoDiv) {
-              var claveInput = campoDiv.children[0];
-              var valorInput = campoDiv.children[1];
-              objeto[claveInput.value] = valorInput.value;
-            });
-            objetos.push(objeto);
-            document.getElementById("json-output").textContent =
-              JSON.stringify(objetos, null, 2);
+        document.getElementById("json-form").addEventListener("submit", function (e) {
+          e.preventDefault();
+          var camposDivs = document.querySelectorAll(".campo");
+          var objeto = {};
+          camposDivs.forEach(function (campoDiv) {
+            var claveInput = campoDiv.children[0];
+            var valorInput = campoDiv.children[1];
+            objeto[claveInput.value] = valorInput.value;
           });
+          objetos.unshift(objeto); // Agrega el objeto al principio del arreglo
+          document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
+
+          // Este pedazo resetea el formulario 
+          var form = document.getElementById('json-form');
+          form.reset();
+        });
 
         function generarObjetos() {
           var cantidad =
@@ -609,6 +354,25 @@
           document.getElementById("json-output").textContent =
             JSON.stringify(objetos, null, 2);
         }
+
+        // Función para deshacer al último cambio
+        document.getElementById('ctrl-z-btn').addEventListener('click', function () {
+          if (objetos.length > 0) {
+            objetos.shift(); // Elimina el último objeto del arreglo
+            document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
+          }
+        });
+
+        //Agrega un campo al cargar completamente la pagina
+        window.addEventListener('load', function () {
+          agregarCampo();
+        });
+
+        //Esto es para resetear el Json
+        document.getElementById('delete-json-btn').addEventListener('click', function () {
+          document.getElementById('json-output').textContent = '';
+          objetos = [];
+        });
 
         function guardarEnDisco() {
           var jsonStr = JSON.stringify(objetos, null, 2);
