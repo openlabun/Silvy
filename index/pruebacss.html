@@ -25,113 +25,99 @@
       <form id="json-form">
         <div id="campos">
           <!-- Los campos se agregaran aquí -->
-          
+
         </div>
         <button type="button" id="agregarC" onclick="agregarCampo()">
-          Agregar campo
+          AGREGAR COLUMNA
         </button>
-        <button type="submit" id="agregarO">Agregar objeto</button>
+        <button type="submit" id="agregarO">AGREGAR OBJETO</button>
       </form>
 
       <h2>Generar objetos automáticamente:</h2>
       <form id="json-form-alt">
         <div id="campos-alt">
           <!-- Los campos se agregaran aquí -->
-          
+
         </div>
-        <button type="button" id="agregarC-alt" onclick="agregarCampoAlt()">
-          Agregar campo
-        </button>
+
       </form>
       <h1></h1>
       <!-- Campo y botón para generar múltiples objetos -->
-      <div class="campo">
+      <div class="campos">
+        <button type="button" id="agregarC-alt" onclick="agregarCampoAlt()">
+          AGREGAR COLUMNA
+        </button>
         <input type="number" id="cantidad-objetos" placeholder="Cantidad de objetos a generar" min="1" />
         <button id="generarObjetos" onclick="generarObjetos()">Generar Objetos</button>
         <button id="guardarDisco" onclick="guardarEnDisco()">Guardar en disco</button>
       </div>
-      <!-- Botón para guardar JSON en disco (esto descargará un archivo) -->
+
 
 
       <!-- Contenedor para mostrar el JSON generado -->
-      <h2>Salida:</h2>
+      <h2 id="salida">--Salida--</h2>
+
+      
+      
+
+      <div id="salida-container">
+        <div id="contenedor-tabla"></div>
+      </div>
+
+      <h2 id = "salida">-- Salida del archivo --</h1>
       <button id="delete-json-btn">Borrar JSON</button>
       <button id="ctrl-z-btn">Ctrl + Z</button>
       <pre id="json-output"></pre>
 
+
       <script>
+        var ciudades = [
+          "Nueva York", "Londres", "Tokio",
+          "París", "Sídney", "Buenos Aires",
+          "Toronto", "Ciudad del Cabo", "Moscú",
+          "Shanghái", "Los Ángeles", "Berlín",
+          "Madrid", "Dubái", "Roma",
+          "Mumbai", "Seúl", "Bangkok",
+          "Singapur", "Estambul"
+        ];
+
+        var objetosAleatorios = [
+          "Lápiz", "Reloj", "Teléfono",
+          "Libro", "Bicicleta", "Laptop",
+          "Gafas de sol", "Cámara", "Mochila",
+          "Botella de agua", "Llave", "Paraguas",
+          "Zapatos", "Auriculares", "Balón de fútbol",
+          "Lámpara", "Cuaderno", "Teclado",
+          "Jarrón", "Cargador"
+        ];
+
+        var vehiculos = [
+          "Automóvil", "Motocicleta", "Bicicleta",
+          "Camión", "Autobús", "Tren",
+          "Avión", "Helicóptero", "Barco",
+          "Submarino", "Scooter", "Tractor",
+          "Monopatín", "Cuatriciclo", "Segway",
+          "Globo aerostático", "Carro de golf", "Kayak",
+          "Patinete eléctrico", "Carro de vela"
+        ];
+
+
         var nombresFicticios = [
-          "Aiden",
-          "Alana",
-          "Alden",
-          "Alexis",
-          "Alvin",
-          "Amelia",
-          "Anika",
-          "Archer",
-          "Ariana",
-          "Ariel",
-          "Armando",
-          "Arthur",
-          "Ashley",
-          "Ashton",
-          "Aubrey",
-          "Audrey",
-          "Austin",
-          "Autumn",
-          "Avery",
-          "Axel",
-          "Bailey",
-          "Barrett",
-          "Beckett",
-          "Bella",
-          "Bennett",
-          "Bethany",
-          "Bianca"
+          "Aria", "Elon", "Lyra",
+          "Tyrion", "Ezio", "Selene",
+          "Artemis", "Darius", "Sora",
+          "Rinoa", "Altair", "Jade",
+          "Nero", "Kai", "Luna", "Bell", "Bennet"
         ];
 
         var apellidosFicticios = [
-          "Abbar",
-          "Bennett",
-          "Calderon",
-          "Dennison",
-          "Eldridge",
-          "Falcon",
-          "Gallagher",
-          "Hendrix",
-          "Ibarra",
-          "Jennings",
-          "Kramer",
-          "Lancaster",
-          "Maddox",
-          "Nixon",
-          "Overton",
-          "Parrish",
-          "Quillen",
-          "Ramsey",
-          "Sanderson",
-          "Thacker",
-          "Underwood",
-          "Vaughn",
-          "Waldron",
-          "Xander",
-          "Yardley",
-          "Zimmerman",
-          "Alton",
-          "Baxter",
-          "Caldwell",
-          "Dexter",
-          "Ellison",
-          "Fairchild",
-          "Grafton",
-          "Hawthorne",
-          "Ingram",
-          "Jefferson",
-          "Kendrick",
-          "Lawson",
-          "Masterson",
-          "Norwood",
+          "Stormwind", "Riviera", "Darkwood",
+          "Lightbringer", "Ironheart", "Nightwalker",
+          "Silverleaf", "Dragonbane", "Shadowmere",
+          "Frostblade", "Dawnseeker", "Starflame",
+          "Moonwhisper", "Skywalker", "Wildrun", "Tuki"
         ];
+
 
         var objetos = [];
 
@@ -152,6 +138,49 @@
           return nombre + " " + apellido;
         }
 
+        function agregarCampoAlt() {
+          var camposDiv = document.getElementById("campos-alt");
+          var nuevoCampoDiv = document.createElement("div");
+          nuevoCampoDiv.className = "campo-alt";
+
+          // Crear y agregar el input para la clave
+          var claveInput = document.createElement("input");
+          claveInput.type = "text";
+          claveInput.placeholder = "Nombre de la columna";
+          claveInput.required = true;
+          claveInput.className = "input-clave-alt"; // Asignar clase para CSS
+          nuevoCampoDiv.appendChild(claveInput);
+
+          // Crear y agregar el input para el valor
+          var valorInput = document.createElement("select");
+          valorInput.type = "select";
+          valorInput.required = true;
+          valorInput.className = "input-valor-alt"; // Asignar clase para CSS
+
+
+          ["--- TEXTO ---", "Ciudad", "Nombre Completo", "Objeto", "Vehiculo", "",
+            "--- NUMEROS ---", "Numero Entero", "Numero Real", "Tarjeta Visa", "Numero Telefonico", "",
+            "--- MISC ---", "Booleano", "IMEI"].forEach(function (valor) {
+              var opcion = document.createElement("option");
+              opcion.value = valor;
+              opcion.text = valor;
+              valorInput.appendChild(opcion);
+            });
+          nuevoCampoDiv.appendChild(valorInput);
+
+
+          // Crear y agregar el botón de eliminar
+          var eliminarBoton = document.createElement("button");
+          eliminarBoton.type = "button";
+          eliminarBoton.textContent = "Eliminar";
+          eliminarBoton.className = "boton-eliminar"; // Asignar clase para CSS
+          eliminarBoton.addEventListener("click", function () {
+            eliminarCampo(eliminarBoton);
+          });
+          nuevoCampoDiv.appendChild(eliminarBoton);
+
+          camposDiv.appendChild(nuevoCampoDiv);
+        }
 
         function agregarCampo() {
           var camposDiv = document.getElementById("campos");
@@ -161,7 +190,7 @@
           // Crear y agregar el input para la clave
           var claveInput = document.createElement("input");
           claveInput.type = "text";
-          claveInput.placeholder = "Nombre del dato";
+          claveInput.placeholder = "Nombre de la columna";
           claveInput.required = true;
           claveInput.className = "input-clave"; // Asignar clase para CSS
           nuevoCampoDiv.appendChild(claveInput);
@@ -169,7 +198,7 @@
           // Crear y agregar el input para el valor
           var valorInput = document.createElement("input");
           valorInput.type = "text";
-          valorInput.placeholder = "Valor del dato";
+          valorInput.placeholder = "Valor de la columna";
           valorInput.required = true;
           valorInput.className = "input-valor"; // Asignar clase para CSS
           nuevoCampoDiv.appendChild(valorInput);
@@ -198,16 +227,16 @@
             objeto[claveInput.value] = valorInput.value;
           });
           objetos.unshift(objeto); // Agrega el objeto al principio del arreglo
-          document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
-
           // Este pedazo resetea el formulario 
           var form = document.getElementById('json-form');
           form.reset();
+          actualizarSalida();
+
         });
+
 
         function generarObjetos() {
           var cantidad = document.getElementById("cantidad-objetos").value;
-          objetos = []; // Limpiar el arreglo de objetos existente
 
           for (var i = 0; i < cantidad; i++) {
             var objeto = {};
@@ -215,22 +244,83 @@
 
             camposDivs.forEach(function (campoDiv) {
               var clave = campoDiv.children[0].value;
-              var tipo = campoDiv.children[1].value;
+              var tipo = campoDiv.children[1].value.toLowerCase();
 
-              if (tipo === "texto") {
-                objeto[clave] = generarNombreAleatorio();
-              } else if (tipo === "número") {
-                objeto[clave] = Math.floor(Math.random() * 100); // Generar un número aleatorio
-              } else if (tipo === "booleano") {
-                objeto[clave] = Math.random() < 0.5; // Generar un valor booleano aleatorio
+              // Verificar si el tipo no es uno de los no deseados
+              if (!["", "--- texto ---", "--- misc ---", "--- numeros ---"].includes(tipo)) {
+                // Asignar valor basado en el tipo
+                switch (tipo) {
+                  case "nombre completo":
+                    objeto[clave] = generarNombreAleatorio();
+                    break;
+                  case "numero entero":
+                    objeto[clave] = Math.floor(Math.random() * 90) + 1;
+                    break;
+                  case "vehiculo":
+                    objeto[clave] = vehiculos[Math.floor(Math.random() * vehiculos.length)];
+                    break;
+                  case "booleano":
+                    objeto[clave] = Math.random() < 0.5;
+                    break;
+                  case "ciudad":
+                    objeto[clave] = ciudades[Math.floor(Math.random() * ciudades.length)];
+                    break;
+                  case "objeto":
+                    objeto[clave] = objetosAleatorios[Math.floor(Math.random() * objetosAleatorios.length)];
+                    break;
+                  case "numero real":
+                    objeto[clave] = Math.random() * 100;
+                    break;
+                  case "tarjeta visa":
+                    objeto[clave] = generarTarjetaVisaFicticia();
+                    break;
+                  case "numero telefonico":
+                    objeto[clave] = generarTelefonoFicticio();
+                    break;
+                  case "imei":
+                    objeto[clave] = generarIMEIFicticio();
+                    break;
+                }
               }
             });
 
-            objetos.push(objeto);
+            // Verificar si el objeto tiene propiedades antes de agregarlo
+            if (Object.keys(objeto).length > 0) {
+              objetos.unshift(objeto);
+            }
+          }
+          if (objetos.length > 0) {
+            actualizarSalida();
           }
 
-          document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
         }
+
+        function generarIMEIFicticio() {
+          let imei = 'I';
+          for (let i = 0; i < 13; i++) {
+            imei += Math.floor(Math.random() * 10);
+          }
+          imei += "MD";
+          return imei;
+        }
+
+        function generarTelefonoFicticio() {
+          let telefono = '';
+          for (let i = 0; i < 10; i++) {
+            telefono += Math.floor(Math.random() * 10);
+          }
+          return telefono;
+        }
+
+
+        function generarTarjetaVisaFicticia() {
+          let numero = '4';
+          for (let i = 0; i < 15; i++) {
+            numero += Math.floor(Math.random() * 10);
+          }
+          return numero;
+        }
+
 
         // Función para deshacer al último cambio
         document.getElementById('ctrl-z-btn').addEventListener('click', function () {
@@ -244,6 +334,21 @@
         window.addEventListener('load', function () {
           agregarCampo();
           agregarCampoAlt();
+          var ejemplo = [
+            {
+              "Esto es": "Esto se borara",
+              "Un ejemplo": "Al introducir",
+            },
+            {
+              "Esto es": "cualquier ",
+              "Un ejemplo": "otro dato en el generador",
+            }
+          ];
+
+          var contenedorConEncabezado = crearTablaDesdeJSON(ejemplo);
+          var contenedorTabla = document.getElementById("contenedor-tabla");
+          contenedorTabla.innerHTML = '';
+          contenedorTabla.appendChild(contenedorConEncabezado);
         });
 
         //Esto es para resetear el Json
@@ -251,6 +356,68 @@
           document.getElementById('json-output').textContent = '';
           objetos = [];
         });
+
+        function crearTablaDesdeJSON(jsonArray) {
+          var contenedorTabla = document.createElement('div');
+          var encabezado = document.createElement('h3');
+          encabezado.textContent = 'Tabla con los datos JSON';
+          contenedorTabla.appendChild(encabezado);
+
+          var tabla = document.createElement('table');
+          tabla.className = 'tablita';
+
+          var cabecera = tabla.createTHead();
+          var filaCabecera = cabecera.insertRow(0);
+
+          // Agregar una celda para el número de fila en la cabecera
+          var celdaTitulo = filaCabecera.insertCell(0);
+          celdaTitulo.innerHTML = "N°";
+          celdaTitulo.style.fontWeight = 'bold'; // Aplicar negrita a la celda de título
+
+          // Recopilar todas las claves únicas
+          var clavesUnicas = new Set();
+          jsonArray.forEach(objeto => {
+            Object.keys(objeto).forEach(clave => clavesUnicas.add(clave));
+          });
+
+          // Crear la cabecera de la tabla y aplicar negrita
+          Array.from(clavesUnicas).forEach(clave => {
+            var celda = filaCabecera.insertCell(-1);
+            celda.innerHTML = clave;
+            celda.style.fontWeight = 'bold'; // Aplicar negrita a cada celda de la cabecera
+          });
+
+          // Agregar filas de datos
+          var cuerpo = tabla.createTBody();
+          jsonArray.forEach((objeto, index) => {
+            var fila = cuerpo.insertRow();
+
+            // Agregar el número de fila al principio de cada fila de datos
+            var celdaNumero = fila.insertCell(0);
+            celdaNumero.innerHTML = index + 1;
+
+            Array.from(clavesUnicas).forEach(clave => {
+              var celda = fila.insertCell(-1);
+              celda.innerHTML = objeto[clave] !== undefined ? objeto[clave] : "";
+            });
+          });
+
+          contenedorTabla.appendChild(tabla);
+          return contenedorTabla;
+        }
+
+
+
+
+        function actualizarSalida() {
+          var jsonOutput = document.getElementById("json-output");
+          jsonOutput.textContent = JSON.stringify(objetos, null, 2);
+
+          var contenedorConEncabezado = crearTablaDesdeJSON(objetos);
+          var contenedorTabla = document.getElementById("contenedor-tabla");
+          contenedorTabla.innerHTML = '';
+          contenedorTabla.appendChild(contenedorConEncabezado);
+        }
 
         function guardarEnDisco() {
           var jsonStr = JSON.stringify(objetos, null, 2);

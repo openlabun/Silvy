@@ -16,15 +16,16 @@ header {
 }
 
 img.imgLogo {
-width: 15vw;
-height: auto;
+  width: 15vw;
+  height: auto;
 }
 
 #cantidad-objetos {
   width: 200px;
 }
 
-.campo, .campo-alt {
+.campo,
+.campo-alt {
   display: flex;
   align-items: center;
   gap: 10px;
@@ -32,7 +33,9 @@ height: auto;
 }
 
 
-.input-clave, .input-valor, input {
+.input-clave,
+.input-valor,
+input {
   width: calc(50% - 20px);
   padding: 8px;
   border: 1px solid #ddd;
@@ -40,7 +43,8 @@ height: auto;
   background-color: rgba(219, 220, 178, 0.536);
 }
 
-.boton-eliminar, #delete-json-btn{
+.boton-eliminar,
+#delete-json-btn {
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -50,12 +54,15 @@ height: auto;
   transition: background-color 0.3s, transform 0.2s;
 }
 
-.boton-eliminar:hover, #delete-json-btn:hover {
+.boton-eliminar:hover,
+#delete-json-btn:hover {
   background-color: #e33e3e;
   transform: scale(1.05);
 }
 
-#agregarC, #agregarO, #agregarC-alt {
+#agregarC,
+#agregarO,
+#agregarC-alt {
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -65,7 +72,9 @@ height: auto;
   transition: background-color 0.3s, transform 0.2s;
 }
 
-#agregarC:hover, #agregarO:hover, #agregarC-alt:hover {
+#agregarC:hover,
+#agregarO:hover,
+#agregarC-alt:hover {
   background-color: rgb(27, 195, 44);
   transform: scale(1.05);
 }
@@ -140,7 +149,10 @@ footer {
 }
 
 /* Animaciones y efectos adicionales */
-button:focus, .input-clave:focus, .input-valor:focus, input:focus {
+button:focus,
+.input-clave:focus,
+.input-valor:focus,
+input:focus {
   outline: none;
   box-shadow: 0 0 5px rgba(81, 203, 238, 1);
 }
@@ -162,41 +174,126 @@ input[type="checkbox"] {
     align-items: stretch;
   }
 
-  .input-clave, .input-valor, input, .boton-eliminar, button {
+  .input-clave,
+  .input-valor,
+  input,
+  .boton-eliminar,
+  button {
     width: 100%;
   }
 }
 
-select {
-  background-color: #f2f2f2; 
-  size: 5wv;
-  color: #333; 
-  padding: 5px;
+.input-valor-alt {
+  width: 200px;
+  /* Ancho del select */
   height: 30px;
-  margin: 8px 0; 
-  border: 1px solid #ccc; 
+  /* Altura del select */
+  border: 1px solid #ccc;
+  /* Borde del select */
+  border-radius: 5px;
+  /* Bordes redondeados */
+  background-color: white;
+  /* Color de fondo */
+  color: #333;
+  /* Color del texto */
+  font-size: 16px;
+  /* Tamaño del texto */
+  padding: 5px;
+  /* Espaciado interno */
+  margin: 10px 0;
+  /* Margen superior e inferior */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  /* Sombra ligera */
+}
+
+.input-valor-alt:focus {
+  border-color: #007bff;
+  /* Color del borde al enfocar */
+  outline: none;
+  /* Remover el contorno por defecto */
+  box-shadow: 0 0 8px rgba(0, 123, 255, 0.5);
+  /* Sombra al enfocar */
+}
+
+#salida-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+#nose {
+  flex-direction: column;
+}
+
+#json-output,
+#contenedor-tabla {
+  flex: 1;
+  margin: 10px;
+  overflow: auto;
+  /* Si es necesario para manejar el desbordamiento */
+}
+
+.tablita {
+  border-collapse: collapse;
+  /* Colapsar bordes */
+  width: 100%;
+  /* Ajustar ancho al contenedor */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  /* Sombra suave */
+  background-color: #f8f8f8;
+  /* Color de fondo */
+  margin: 10px 0;
+  /* Margen superior e inferior */
+}
+
+.tablita th,
+.tablita td {
+  border: 1px solid #ddd;
+  /* Bordes de celdas */
+  padding: 8px;
+  /* Espaciado interno */
+  text-align: left;
+  /* Alineación del texto */
+}
+
+.tablita th {
+  background-color: #4CAF50;
+  color: white;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  font-weight: bold;
+  font-style: italic;
+}
+
+.tablita tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Color de fondo para filas pares */
+
+.tablita tr:hover {
+  background-color: #ddd;
+}
+
+
+#json-output {
+  background-color: #f4f4f4;
+  color: #333;
+  border-left: 5px solid #4CAF50;
+  padding: 10px 20px;
+  margin: 10px 0;
+  overflow: auto;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.9em;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
-  font-size: 14px; 
-  cursor: pointer; 
 }
 
-.contenedor-input {
-  position: relative;
-  display: inline-block;
-}
-
-#lista-menu {
-  position: absolute;
-    top: 100%; /* Posiciona el menú justo debajo del input */
-    left: 0;
-    display: none; /* Oculta inicialmente el menú */
-}
-
-.menu-oculto {
-  display: none;
-}
-
-.menu-visible {
-  display: block;
+#salida {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  font-style: italic;
 }
