@@ -20,12 +20,12 @@
     </header>
 
     <div class="article">
-      <h2>Crear Objeto:</h2>
+      <h2>Agregar objeto manualmente:</h2>
       <!-- Formulario para agregar nuevos objetos JSON -->
       <form id="json-form">
         <div id="campos">
           <!-- Los campos se agregaran aquí -->
-
+          
         </div>
         <button type="button" id="agregarC" onclick="agregarCampo()">
           Agregar campo
@@ -33,16 +33,25 @@
         <button type="submit" id="agregarO">Agregar objeto</button>
       </form>
 
-      <h2>Generar automáticamente:</h2>
+      <h2>Generar objetos automáticamente:</h2>
+      <form id="json-form-alt">
+        <div id="campos-alt">
+          <!-- Los campos se agregaran aquí -->
+          
+        </div>
+        <button type="button" id="agregarC-alt" onclick="agregarCampoAlt()">
+          Agregar campo
+        </button>
+      </form>
+      <h1></h1>
       <!-- Campo y botón para generar múltiples objetos -->
-      <input type="number" id="cantidad-objetos" placeholder="Cantidad de objetos" min="1" />
-      <button id="generarObjetos" onclick="generarObjetos()">Generar Objetos
-
-      </button>
-
+      <div class="campo">
+        <input type="number" id="cantidad-objetos" placeholder="Cantidad de objetos a generar" min="1" />
+        <button id="generarObjetos" onclick="generarObjetos()">Generar Objetos</button>
+        <button id="guardarDisco" onclick="guardarEnDisco()">Guardar en disco</button>
+      </div>
       <!-- Botón para guardar JSON en disco (esto descargará un archivo) -->
 
-      <button id="guardarDisco" onclick="guardarEnDisco()">Guardar en disco</button>
 
       <!-- Contenedor para mostrar el JSON generado -->
       <h2>Salida:</h2>
@@ -78,83 +87,7 @@
           "Bella",
           "Bennett",
           "Bethany",
-          "Bianca",
-          "Blaine",
-          "Blake",
-          "Blaze",
-          "Brendan",
-          "Brenna",
-          "Brett",
-          "Brianna",
-          "Bridget",
-          "Brinley",
-          "Brock",
-          "Brody",
-          "Brooke",
-          "Bryant",
-          "Brynn",
-          "Bryson",
-          "Cadence",
-          "Caiden",
-          "Caleb",
-          "Callie",
-          "Calvin",
-          "Camden",
-          "Cameron",
-          "Camila",
-          "Camille",
-          "Cara",
-          "Carlos",
-          "Carmen",
-          "Carter",
-          "Cassandra",
-          "Cecilia",
-          "Cedric",
-          "Celeste",
-          "Cesar",
-          "Chad",
-          "Chandler",
-          "Chanel",
-          "Charity",
-          "Charles",
-          "Charlie",
-          "Charlotte",
-          "Chase",
-          "Chaya",
-          "Chelsea",
-          "Cherish",
-          "Cheyenne",
-          "Chloe",
-          "Chris",
-          "Christian",
-          "Christina",
-          "Christine",
-          "Christopher",
-          "Ciara",
-          "Cindy",
-          "Claire",
-          "Clara",
-          "Clarence",
-          "Clarissa",
-          "Clark",
-          "Claudia",
-          "Clay",
-          "Clayton",
-          "Cleo",
-          "Clifford",
-          "Clint",
-          "Clinton",
-          "Clyde",
-          "Coby",
-          "Cody",
-          "Colette",
-          "Colby",
-          "Cole",
-          "Colette",
-          "Colin",
-          "Colleen",
-          "Colt",
-          "Colton",
+          "Bianca"
         ];
 
         var apellidosFicticios = [
@@ -198,75 +131,6 @@
           "Lawson",
           "Masterson",
           "Norwood",
-          "Oakley",
-          "Prescott",
-          "Quincy",
-          "Redfield",
-          "Sherwood",
-          "Tanner",
-          "Upton",
-          "Vance",
-          "Waverly",
-          "Xavier",
-          "Yeager",
-          "Zane",
-          "Alcott",
-          "Barrington",
-          "Carrington",
-          "Dalton",
-          "Eaton",
-          "Farnsworth",
-          "Garfield",
-          "Harrington",
-          "Iverson",
-          "Jenner",
-          "Kensington",
-          "Lancaster",
-          "Masterson",
-          "Noble",
-          "Overstreet",
-          "Patterson",
-          "Quincy",
-          "Radcliffe",
-          "Satterfield",
-          "Trenton",
-          "Upton",
-          "Vanderbilt",
-          "Warwick",
-          "Xenos",
-          "Yeager",
-          "Zephyr",
-          "Aldridge",
-          "Baxter",
-          "Colton",
-          "Dewitt",
-          "Eldridge",
-          "Fairfax",
-          "Gainsborough",
-          "Hawthorne",
-          "Inglewood",
-          "Jennings",
-          "Kingsley",
-          "Lawrence",
-          "Merton",
-          "Northwood",
-          "Oglesby",
-          "Pennington",
-          "Quill",
-          "Ridgeway",
-          "Somerset",
-          "Tillman",
-          "Underhill",
-          "Vernon",
-          "Wainwright",
-          "Xander",
-          "Yates",
-          "Zimmer",
-          "Allerton",
-          "Bradford",
-          "Clifton",
-          "Dudley",
-          "Ellsworth",
         ];
 
         var objetos = [];
@@ -287,6 +151,7 @@
             ];
           return nombre + " " + apellido;
         }
+
 
         function agregarCampo() {
           var camposDiv = document.getElementById("campos");
@@ -341,18 +206,30 @@
         });
 
         function generarObjetos() {
-          var cantidad =
-            document.getElementById("cantidad-objetos").value;
+          var cantidad = document.getElementById("cantidad-objetos").value;
+          objetos = []; // Limpiar el arreglo de objetos existente
+
           for (var i = 0; i < cantidad; i++) {
-            var objeto = {
-              nombre: generarNombreAleatorio(),
-              edad: Math.floor(Math.random() * 100),
-              casado: Math.random() < 0.5,
-            };
+            var objeto = {};
+            var camposDivs = document.querySelectorAll("#campos-alt .campo-alt");
+
+            camposDivs.forEach(function (campoDiv) {
+              var clave = campoDiv.children[0].value;
+              var tipo = campoDiv.children[1].value;
+
+              if (tipo === "texto") {
+                objeto[clave] = generarNombreAleatorio();
+              } else if (tipo === "número") {
+                objeto[clave] = Math.floor(Math.random() * 100); // Generar un número aleatorio
+              } else if (tipo === "booleano") {
+                objeto[clave] = Math.random() < 0.5; // Generar un valor booleano aleatorio
+              }
+            });
+
             objetos.push(objeto);
           }
-          document.getElementById("json-output").textContent =
-            JSON.stringify(objetos, null, 2);
+
+          document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
         }
 
         // Función para deshacer al último cambio
@@ -366,6 +243,7 @@
         //Agrega un campo al cargar completamente la pagina
         window.addEventListener('load', function () {
           agregarCampo();
+          agregarCampoAlt();
         });
 
         //Esto es para resetear el Json

@@ -16,16 +16,21 @@ header {
 }
 
 img.imgLogo {
-width: 30vw;
+width: 15vw;
 height: auto;
 }
 
-.campo {
+#cantidad-objetos {
+  width: 200px;
+}
+
+.campo, .campo-alt {
   display: flex;
   align-items: center;
   gap: 10px;
   margin-bottom: 10px;
 }
+
 
 .input-clave, .input-valor, input {
   width: calc(50% - 20px);
@@ -50,7 +55,7 @@ height: auto;
   transform: scale(1.05);
 }
 
-#agregarC, #agregarO {
+#agregarC, #agregarO, #agregarC-alt {
   padding: 10px 15px;
   border: none;
   border-radius: 4px;
@@ -60,7 +65,7 @@ height: auto;
   transition: background-color 0.3s, transform 0.2s;
 }
 
-#agregarC:hover, #agregarO:hover {
+#agregarC:hover, #agregarO:hover, #agregarC-alt:hover {
   background-color: rgb(27, 195, 44);
   transform: scale(1.05);
 }
@@ -160,4 +165,38 @@ input[type="checkbox"] {
   .input-clave, .input-valor, input, .boton-eliminar, button {
     width: 100%;
   }
+}
+
+select {
+  background-color: #f2f2f2; 
+  size: 5wv;
+  color: #333; 
+  padding: 5px;
+  height: 30px;
+  margin: 8px 0; 
+  border: 1px solid #ccc; 
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); 
+  font-size: 14px; 
+  cursor: pointer; 
+}
+
+.contenedor-input {
+  position: relative;
+  display: inline-block;
+}
+
+#lista-menu {
+  position: absolute;
+    top: 100%; /* Posiciona el menú justo debajo del input */
+    left: 0;
+    display: none; /* Oculta inicialmente el menú */
+}
+
+.menu-oculto {
+  display: none;
+}
+
+.menu-visible {
+  display: block;
 }
