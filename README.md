@@ -9,19 +9,6 @@ Paso 1: Clonar el repositorio
 ```bash
 git clone https://github.com/proyectosuninorte/Silvy.git
 ```
-
-Paso 2: cd en el repositorio clonado y ejecute:
-
-```bash
-npm install
-```
-
-Paso 3: Inicie la API
-
-```bash
-npm start
-```
-
 ## Autores
 
 - [**AKKO98**](https://github.com/AKKO98)
