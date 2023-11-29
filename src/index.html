@@ -327,6 +327,7 @@
           if (objetos.length > 0) {
             objetos.shift(); // Elimina el último objeto del arreglo
             document.getElementById("json-output").textContent = JSON.stringify(objetos, null, 2);
+            actualizarSalida();
           }
         });
 
@@ -355,6 +356,7 @@
         document.getElementById('delete-json-btn').addEventListener('click', function () {
           document.getElementById('json-output').textContent = '';
           objetos = [];
+          actualizarSalida();
         });
 
         function crearTablaDesdeJSON(jsonArray) {
@@ -405,9 +407,6 @@
           contenedorTabla.appendChild(tabla);
           return contenedorTabla;
         }
-
-
-
 
         function actualizarSalida() {
           var jsonOutput = document.getElementById("json-output");
