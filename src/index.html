@@ -145,9 +145,9 @@
           valorInput.className = "input-valor-alt"; // Asignar clase para CSS
 
 
-          ["--- TEXTO ---", "Ciudad", "Nombre Completo", "Objeto", "Vehiculo", "",
-            "--- NUMEROS ---", "Numero Entero", "Numero Real", "Tarjeta Visa", "Numero Telefonico", "",
-            "--- MISC ---", "Booleano", "IMEI"].forEach(function (valor) {
+          ["--- TIPO DE DATO ACA ---", "","--- TEXTO ---", "Ciudad", "Nombre Completo", "Objeto", "Vehiculo", "",
+            "--- NUMEROS ---", "Numero Entero", "Numero Real", "Numero Telefonico", "Tarjeta Visa", "",
+            "--- MISC ---", "Booleano", "IMEI",""].forEach(function (valor) {
               var opcion = document.createElement("option");
               opcion.value = valor;
               opcion.text = valor;
@@ -182,7 +182,7 @@
 
               // Verificar si el tipo no es uno de los no deseados
               if (!["", " ", "  ", "    "].includes(clave)) {
-                if (!["", "--- texto ---", "--- misc ---", "--- numeros ---"].includes(tipo)) {
+                if (!["", "--- texto ---", "--- misc ---", "--- numeros ---", "--- tipo de dato aca ---"].includes(tipo)) {
                   // Asignar valor basado en el tipo
                   switch (tipo) {
                     case "nombre completo":
