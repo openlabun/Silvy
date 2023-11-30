@@ -20,19 +20,6 @@
     </header>
 
     <div class="article">
-      <h2>Agregar objeto manualmente:</h2>
-      <!-- Formulario para agregar nuevos objetos JSON -->
-      <form id="json-form">
-        <div id="campos">
-          <!-- Los campos se agregaran aquí -->
-
-        </div>
-        <button type="button" id="agregarC" onclick="agregarCampo()">
-          AGREGAR COLUMNA
-        </button>
-        <button type="submit" id="agregarO">AGREGAR OBJETO</button>
-      </form>
-
       <h2>Generar objetos automáticamente:</h2>
       <form id="json-form-alt">
         <div id="campos-alt">
@@ -182,62 +169,9 @@
           camposDiv.appendChild(nuevoCampoDiv);
         }
 
-        function agregarCampo() {
-          var camposDiv = document.getElementById("campos");
-          var nuevoCampoDiv = document.createElement("div");
-          nuevoCampoDiv.className = "campo";
-
-          // Crear y agregar el input para la clave
-          var claveInput = document.createElement("input");
-          claveInput.type = "text";
-          claveInput.placeholder = "Nombre de la columna";
-          claveInput.required = true;
-          claveInput.className = "input-clave"; // Asignar clase para CSS
-          nuevoCampoDiv.appendChild(claveInput);
-
-          // Crear y agregar el input para el valor
-          var valorInput = document.createElement("input");
-          valorInput.type = "text";
-          valorInput.placeholder = "Valor de la columna";
-          valorInput.required = true;
-          valorInput.className = "input-valor"; // Asignar clase para CSS
-          nuevoCampoDiv.appendChild(valorInput);
-
-          // Crear y agregar el botón de eliminar
-          var eliminarBoton = document.createElement("button");
-          eliminarBoton.type = "button";
-          eliminarBoton.textContent = "Eliminar";
-          eliminarBoton.className = "boton-eliminar"; // Asignar clase para CSS
-          eliminarBoton.addEventListener("click", function () {
-            eliminarCampo(eliminarBoton);
-          });
-          nuevoCampoDiv.appendChild(eliminarBoton);
-
-          camposDiv.appendChild(nuevoCampoDiv);
-        }
-
-
-        document.getElementById("json-form").addEventListener("submit", function (e) {
-          e.preventDefault();
-          var camposDivs = document.querySelectorAll(".campo");
-          var objeto = {};
-          camposDivs.forEach(function (campoDiv) {
-            var claveInput = campoDiv.children[0];
-            var valorInput = campoDiv.children[1];
-            objeto[claveInput.value] = valorInput.value;
-          });
-          objetos.unshift(objeto); // Agrega el objeto al principio del arreglo
-          // Este pedazo resetea el formulario 
-          var form = document.getElementById('json-form');
-          form.reset();
-          actualizarSalida();
-
-        });
-
-
         function generarObjetos() {
           var cantidad = document.getElementById("cantidad-objetos").value;
-
+          objetos = [];
           for (var i = 0; i < cantidad; i++) {
             var objeto = {};
             var camposDivs = document.querySelectorAll("#campos-alt .campo-alt");
@@ -247,39 +181,41 @@
               var tipo = campoDiv.children[1].value.toLowerCase();
 
               // Verificar si el tipo no es uno de los no deseados
-              if (!["", "--- texto ---", "--- misc ---", "--- numeros ---"].includes(tipo)) {
-                // Asignar valor basado en el tipo
-                switch (tipo) {
-                  case "nombre completo":
-                    objeto[clave] = generarNombreAleatorio();
-                    break;
-                  case "numero entero":
-                    objeto[clave] = Math.floor(Math.random() * 90) + 1;
-                    break;
-                  case "vehiculo":
-                    objeto[clave] = vehiculos[Math.floor(Math.random() * vehiculos.length)];
-                    break;
-                  case "booleano":
-                    objeto[clave] = Math.random() < 0.5;
-                    break;
-                  case "ciudad":
-                    objeto[clave] = ciudades[Math.floor(Math.random() * ciudades.length)];
-                    break;
-                  case "objeto":
-                    objeto[clave] = objetosAleatorios[Math.floor(Math.random() * objetosAleatorios.length)];
-                    break;
-                  case "numero real":
-                    objeto[clave] = Math.random() * 100;
-                    break;
-                  case "tarjeta visa":
-                    objeto[clave] = generarTarjetaVisaFicticia();
-                    break;
-                  case "numero telefonico":
-                    objeto[clave] = generarTelefonoFicticio();
-                    break;
-                  case "imei":
-                    objeto[clave] = generarIMEIFicticio();
-                    break;
+              if (!["", " ", "  ", "    "].includes(clave)) {
+                if (!["", "--- texto ---", "--- misc ---", "--- numeros ---"].includes(tipo)) {
+                  // Asignar valor basado en el tipo
+                  switch (tipo) {
+                    case "nombre completo":
+                      objeto[clave] = generarNombreAleatorio();
+                      break;
+                    case "numero entero":
+                      objeto[clave] = Math.floor(Math.random() * 90) + 1;
+                      break;
+                    case "vehiculo":
+                      objeto[clave] = vehiculos[Math.floor(Math.random() * vehiculos.length)];
+                      break;
+                    case "booleano":
+                      objeto[clave] = Math.random() < 0.5;
+                      break;
+                    case "ciudad":
+                      objeto[clave] = ciudades[Math.floor(Math.random() * ciudades.length)];
+                      break;
+                    case "objeto":
+                      objeto[clave] = objetosAleatorios[Math.floor(Math.random() * objetosAleatorios.length)];
+                      break;
+                    case "numero real":
+                      objeto[clave] = Math.random() * 100;
+                      break;
+                    case "tarjeta visa":
+                      objeto[clave] = generarTarjetaVisaFicticia();
+                      break;
+                    case "numero telefonico":
+                      objeto[clave] = generarTelefonoFicticio();
+                      break;
+                    case "imei":
+                      objeto[clave] = generarIMEIFicticio();
+                      break;
+                  }
                 }
               }
             });
@@ -333,7 +269,6 @@
 
         //Agrega un campo al cargar completamente la pagina
         window.addEventListener('load', function () {
-          agregarCampo();
           agregarCampoAlt();
           var ejemplo = [
             {
@@ -356,7 +291,7 @@
         document.getElementById('delete-json-btn').addEventListener('click', function () {
           document.getElementById('json-output').textContent = '';
           objetos = [];
-          actualizarSalida();
+          actualizarSalida(); 
         });
 
         function crearTablaDesdeJSON(jsonArray) {
