@@ -23,10 +23,10 @@ jobs:
         key: ${{ secrets.SSH_PRIVATE_KEY }}
         port: 22
         script: |
-          cd /home/azureuser/Silvy/
+          cd /home/proyecto/Silvy/
           git pull origin main
           git status
           docker stop silvy-app
           docker rm silvy-app
-          docker build -t silvy_image .
-          docker run --restart unless-stopped --name silvy-app -p 5004:80 -d silvy_image
+          docker build -t silvy .
+          docker run --restart unless-stopped --name silvy-app -p 5004:80 -d silvy
