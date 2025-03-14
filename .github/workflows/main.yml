@@ -28,5 +28,5 @@ jobs:
           git status
           docker stop silvy-app
           docker rm silvy-app
-          docker build -t silvy .
-          docker run --restart unless-stopped --name silvy-app -p 5004:80 -d silvy
+          docker build -t silvy-image .
+          docker run --restart unless-stopped --name silvy -p 5004:80 -d silvy-image
