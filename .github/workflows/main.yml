@@ -26,7 +26,7 @@ jobs:
           cd /home/proyecto/Silvy/
           git pull origin main
           git status
-          docker stop silvy-app
-          docker rm silvy-app
+          docker stop silvy
+          docker rm silvy
           docker build -t silvy-image .
           docker run --restart unless-stopped --name silvy -p 5004:80 -d silvy-image
