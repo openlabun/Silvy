@@ -12,5 +12,5 @@ git clone https://github.com/proyectosuninorte/Silvy.git
 ## Autores
 
 - [**AKKO98**](https://github.com/AKKO98)
-- [**adl088**]()
+- [**adl088**](https://github.com/adl088)
 - [**Joy12600**](https://github.com/Joy12600)
